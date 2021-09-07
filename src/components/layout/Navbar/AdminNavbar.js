@@ -20,12 +20,12 @@ const AdminNavbar = (props) => {
   const { togglers, uiContents } = setToggler;
   const { collapse, headertheme } = setToggler.uiContents;
   const { user_type, token } = localStorage;
-  const Donothing = () => {};
+  const Donothing = () => { };
   useEffect(() => {
     //if the user is not authenticated push to login
     user_type === "system_admin" && token
       ? Donothing()
-      : props.history.push("/login");
+      : props.history.push("/login.html");
     let { width } = window.screen;
     setState({ ...state, screen: width });
     if (width <= 892) {
@@ -59,8 +59,8 @@ const AdminNavbar = (props) => {
           ? "closed-sidebar-mobile closed-sidebar sidebar-mobile-open"
           : "closed-sidebar-mobile closed-sidebar"
         : collapse === ""
-        ? "closed-sidebar"
-        : "";
+          ? "closed-sidebar"
+          : "";
     togglers({ ...uiContents, collapse: toggler });
     setState({ ...state, toggleButton });
   };

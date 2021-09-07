@@ -31,14 +31,14 @@ const TakeActions = ({ l_id: id }) => {
     employees,
     messages,
     users,
-    connections,
+    department
   } = useContext(StoreContext);
   const Mess = new Message(
     messages.state,
-    connections.state,
     letters.state,
     users.state,
-    employees.state
+    employees.state,
+    department.state
   );
   const Letter = Mess.find_letter(id);
   const emp_id = Mess.getEmp_id();
@@ -92,15 +92,15 @@ const TakeActions = ({ l_id: id }) => {
                     message:
                       state.approved === "Approved"
                         ? "System Notification " +
-                          Mess.Name(emp_id) +
-                          " has approved your letter " +
-                          Letter.id
+                        Mess.Name(emp_id) +
+                        " has approved your letter " +
+                        Letter.id
                         : state.approved === "unApproved"
-                        ? "System notification " +
+                          ? "System notification " +
                           Mess.Name(emp_id) +
                           " un approved your letter because " +
                           state.comment
-                        : "",
+                          : "",
                     letter_id: "",
                     file_name: "",
                     sender: emp_id,
@@ -150,10 +150,10 @@ const TakeActions = ({ l_id: id }) => {
     const Letters = await loadLetters();
     const M = new Message(
       messages.state,
-      connections.state,
       Letters,
       users.state,
-      employees.state
+      employees.state,
+      department.state
     );
     let progress = M.totallProgress(id) === 100 ? true : false;
     let Participants = M.participants(id).length ? true : false;

@@ -25,23 +25,24 @@ const ViewLetters = ({ l_id: id, setSize }) => {
     setSize ? setSize("xl") : Donothing();
     Mess.manager_info(id)
       ? socket.emit("update_letter", {
-          ...Letter,
-          approval_manager: [
-            ...Mess.approval_managers(id).filter((m) => m.emp_id !== emp_id),
-            { ...Mess.manager_info(id, emp_id), seen: true },
-          ],
-        })
+        ...Letter,
+        approval_manager: [
+          ...Mess.approval_managers(id).filter((m) => m.emp_id !== emp_id),
+          { ...Mess.manager_info(id, emp_id), seen: true },
+        ],
+      })
       : Donothing();
 
     Mess.participants(id).find((m) => m.emp_id === emp_id)
-      ? socket.emit("update_letter", {
+      ? !(Mess.participants(id).find((m) => m.emp_id === emp_id)).seen ?
+        socket.emit("update_letter", {
           ...Letter,
           participants: [
             ...Mess.participants(id).filter((m) => m.emp_id !== emp_id),
             { ...Mess.particpant_info(id, emp_id), seen: true },
           ],
         })
-      : Donothing();
+        : Donothing() : Donothing();
   }, []);
   const componentRef = useRef();
   return (

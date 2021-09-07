@@ -32,8 +32,8 @@ export class LettersClass extends UsersClass {
       ? this.description(id).blocks[0]
         ? this.description(id).blocks[0].text
         : "" + "<br/>" + this.description(id).blocks[1]
-        ? this.description(id).blocks[1].text
-        : ""
+          ? this.description(id).blocks[1].text
+          : ""
       : "";
   /**returns title of the letter
    * @param {*} id - string of letter id
@@ -185,8 +185,8 @@ export class LettersClass extends UsersClass {
       m.seen && m.status === "waiting"
         ? (i = i + this.rank(m.status))
         : m.status === "waiting"
-        ? Donothing()
-        : (i = i + this.rank(m.status));
+          ? Donothing()
+          : (i = i + this.rank(m.status));
     });
     return i;
   };
@@ -203,25 +203,27 @@ export class LettersClass extends UsersClass {
     this.approval_managers(id).find((m) => m.status === "unApproved")
       ? true
       : this.progress(id) === 0
-      ? true
-      : false;
+        ? true
+        : false;
   /**return's true if the approval mananager can approve the letter false if it can not
    * @param {*} id - string of letter _id
    * @param {*} emp_id- string of emp_id
    */
-  isApprovable = (id, emp_id) =>
-    this.approval_managers(id).find(
+  isApprovable = (id, emp_id) => {
+    console.log(this.participants(id).find((l) => l.seen))
+    return (this.approval_managers(id).find(
       (m) => m.status === "unApproved" && m.emp_id !== this.getEmp_id()
     )
       ? false
       : this.approval_managers(id).find(
-          (m) =>
-            m.step > this.approvalStep(id, emp_id) && m.status === "Approved"
-        )
-      ? false
-      : this.participants(id).find((l) => l.seen)
-      ? false
-      : true;
+        (m) =>
+          m.step > this.approvalStep(id, emp_id) && m.status === "Approved"
+      )
+        ? false
+        : this.participants(id).find((l) => l.seen)
+          ? true
+          : true);
+  }
   /** return's array of object about unApproved managers list
    * @param {*} id- String letter id
    */

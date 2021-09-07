@@ -7,5 +7,5 @@ export const Logout = (props, socket) => {
   localStorage.removeItem("user_type");
   localStorage.removeItem("emp_id");
   socket.emit("disConnect");
-  props.history.push("/login");
+  props.history.push("/login.html");
 };
