@@ -18,17 +18,6 @@ const Letter = () => {
   const [state, setState] = useState({
     collapse: "",
   });
-  const { letters, employees, messages, users, connections } = useContext(
-    StoreContext
-  );
-  const Messages = new Message(
-    messages.state,
-    connections.state,
-    letters.state,
-    users.state,
-    employees.state
-  ); //importing message class
-  const notify = !messages.loading ? Messages.newInboxLetters().length : 0;
 
   return (
     <div
