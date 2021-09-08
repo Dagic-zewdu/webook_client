@@ -173,7 +173,7 @@ const Navbar = (props) => {
                     >
                       <button
                         type="button"
-                        onClick={() => Logout(props, socket)}
+                        onClick={() => Logout(props, socket, allowance.getEmp_id)}
                         tabIndex="0"
                         className="dropdown-item"
                       >

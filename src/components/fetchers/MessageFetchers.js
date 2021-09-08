@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Donothing } from "../../controllers/saveProcess";
+import { UsersClass } from "../../controllers/Users";
 import { webSocket } from "../../socket";
 import { addConn } from "../../store/Actions/connectionAction";
 import { addLetters } from "../../store/Actions/letterActions";
@@ -15,12 +16,21 @@ const MessageFetchers = () => {
     setTyping,
     setLTyping,
     setSocket,
+    department, employees, users
   } = useContext(StoreContext);
   setSocket(webSocket);
+  const { } = useContext(StoreContext);
+  const { state: Employees, loading: empLoading } = employees;
+  const { state: Users, loading: userLoading } = users;
+  const allowance = new UsersClass(
+    users.state,
+    employees.state,
+    department.state
+  );
   useEffect(() => {
     try {
       socket
-        ? socket.emit("onConnect", { emp_id: localStorage.emp_id })
+        ? socket.emit("onConnect", { emp_id: allowance.getEmp_id() })
         : Donothing();
       socket ? socket.emit("users", "") : Donothing();
       socket
@@ -44,7 +54,7 @@ const MessageFetchers = () => {
       dispatchConnections({ type: "Error" });
       dispatchMessages({ type: "Error" });
     }
-  }, [socket]);
+  }, [socket, empLoading]);
   return <div></div>;
 };
 

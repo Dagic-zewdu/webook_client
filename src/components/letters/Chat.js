@@ -84,7 +84,7 @@ const Chat = ({ match }) => {
 
   /**stop typing */
   const stopTyping = () =>
-    setTimeout(() => socket.emit("typing", { emp_id: "" }), 1800); //for chat
+    setTimeout(() => socket.emit("typing", { emp_id: "" }), 1200); //for chat
   const stop_typing = () => socket.emit("typing_letter", { emp_id: "" }); //for creating letter
 
   /**emmitter */
@@ -94,10 +94,10 @@ const Chat = ({ match }) => {
     e.preventDefault();
     state.message !== ""
       ? socket.emit("submit", {
-          sender: Messages.getEmp_id(),
-          reciever: emp_id,
-          message: state.message,
-        })
+        sender: Messages.getEmp_id(),
+        reciever: emp_id,
+        message: state.message,
+      })
       : Donothing();
     setState({ ...state, message: "" });
     Scroller();
@@ -181,9 +181,9 @@ const Chat = ({ match }) => {
                             <p>
                               {Messages.last_message(m).message.length > 100
                                 ? Messages.last_message(m).message.slice(
-                                    0,
-                                    120
-                                  ) + "  ..."
+                                  0,
+                                  120
+                                ) + "  ..."
                                 : Messages.last_message(m).message}
                             </p>
                           </div>
@@ -287,10 +287,10 @@ const Chat = ({ match }) => {
                                   {Messages.description_text(m.letter_id)
                                     .length > 100
                                     ? Messages.description_text(
-                                        m.letter_id
-                                      ).slice(0, 120) + " ..."
+                                      m.letter_id
+                                    ).slice(0, 120) + " ..."
                                     : Messages.description_text(m.letter_id)}
-                                  {} {/*letter class*/}
+                                  { } {/*letter class*/}
                                 </div>
                                 <div className="card-footer text-muted">
                                   <ModalLetter
@@ -328,8 +328,8 @@ const Chat = ({ match }) => {
                                 m.sender !== Messages.getEmp_id()
                                   ? Messages.firstLetters(m.sender)
                                   : m.reciever !== Messages.getEmp_id()
-                                  ? Messages.firstLetters(m.reciever)
-                                  : ""
+                                    ? Messages.firstLetters(m.reciever)
+                                    : ""
                               }
                             ></p>
                           </div>
@@ -347,10 +347,10 @@ const Chat = ({ match }) => {
                                     {Messages.description_text(m.letter_id)
                                       .length > 100
                                       ? Messages.description_text(
-                                          m.letter_id
-                                        ).slice(0, 100) + " ..."
+                                        m.letter_id
+                                      ).slice(0, 100) + " ..."
                                       : Messages.description_text(m.letter_id)}
-                                    {} {/*letter class*/}
+                                    { } {/*letter class*/}
                                   </div>
                                   <div className="card-footer text-muted">
                                     <ModalLetter

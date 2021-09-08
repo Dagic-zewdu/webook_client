@@ -2,7 +2,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Component } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { durationDays, ToEthiopianDateSting } from "../../controllers/Date";
+import { durationDays, ToEthiopianDateSting, TellDay } from "../../controllers/Date";
 
 class PrintLetter extends Component {
   render() {
@@ -20,27 +20,27 @@ class PrintLetter extends Component {
               {Letter
                 ? Letter.creater === Mess.getEmp_id()
                   ? ""
-                  : "ለ- " + Mess.Name(Mess.getEmp_id())
+                  : "To- " + Mess.Name(Mess.getEmp_id())
                 : ""}
             </h6>
             <h6 className="text-center font-weight-bold">
               {Letter
                 ? Letter.creater === Mess.getEmp_id()
                   ? ""
-                  : "ከ - " + Mess.Name(Letter.creater)
+                  : "From - " + Mess.Name(Letter.creater)
                 : ""}{" "}
               <br />
               {Letter
                 ? Letter.creater === Mess.getEmp_id()
                   ? ""
-                  : "ዲፓርትመንት - " + Mess.Department(Letter.creater)
+                  : "Department- " + Mess.Department(Letter.creater)
                 : ""}
             </h6>
           </div>
           <div className="col-lg-6 my-2">
             <h6 className="text-center font-italic float-right">
-              ደብዳቤ መለያ- {Letter.id} <br />
-              ቀን -{Letter ? ToEthiopianDateSting(Letter.created_date) : ""}
+              Letter id- {Letter.id} <br />
+              Date -{Letter ? TellDay(Letter.created_date) : ""}
             </h6>
           </div>
           {Letter ? (
