@@ -20,10 +20,8 @@ import MessageFetchers from "../../fetchers/MessageFetchers";
 import { UsersClass } from "../../../controllers/Users";
 import DepartmentFetch from "../../fetchers/departmentFetch";
 const SideNav = () => {
-  const { setSocket, users, employees, department } = useContext(StoreContext);
   const setToggler = useContext(LayoutContext);
   const { sidetheme } = setToggler.uiContents;
-  const User = new UsersClass(users.state, employees.state, department.state);
 
   return (
     <div className={"app-sidebar sidebar-shadow " + sidetheme}>
@@ -31,7 +29,6 @@ const SideNav = () => {
         <DepartmentFetch />
         <EmployeeFetcher />
         <CompanyFetcher />
-        <UsersFetcher />
         <MessageFetchers />
         <div className="header__pane ml-auto">
           <div>

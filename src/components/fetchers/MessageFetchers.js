@@ -5,13 +5,14 @@ import { webSocket } from "../../socket";
 import { addConn } from "../../store/Actions/connectionAction";
 import { addLetters } from "../../store/Actions/letterActions";
 import { addMessages } from "../../store/Actions/messageActions";
+import { addUsers } from "../../store/Actions/userActions";
 import { StoreContext } from "../contexts/contexts";
 
 const MessageFetchers = () => {
   const {
     socket,
     dispatchMessages,
-    dispatchConnections,
+    dispatchUsers,
     dispatchLetters,
     setTyping,
     setLTyping,
@@ -34,7 +35,9 @@ const MessageFetchers = () => {
         : Donothing();
       socket ? socket.emit("users", "") : Donothing();
       socket
-        ? socket.on("users", (data) => dispatchConnections(addConn(data)))
+        ? socket.on("users", (data) => {
+          dispatchUsers(addUsers(data))
+        })
         : Donothing();
       socket ? socket.emit("chat", "") : Donothing();
       socket
@@ -51,7 +54,7 @@ const MessageFetchers = () => {
         ? socket.on("letters", (data) => dispatchLetters(addLetters(data)))
         : Donothing();
     } catch (err) {
-      dispatchConnections({ type: "Error" });
+      dispatchUsers({ type: "Error" });
       dispatchMessages({ type: "Error" });
     }
   }, [socket, empLoading]);

@@ -17,11 +17,10 @@ const Contacts = () => {
   const [state, setState] = useState({
     employees: [], // connected or discconnected users
   });
-  const { users, employees, messages, department, letters } =
-    useContext(StoreContext);
+  const { users, employees, messages, department, letters } = useContext(StoreContext);
 
-  const { state: Users, loading: userLoading, error: userError } = users;
-  const { state: Employees, loading: empLoading, error: empError } = employees;
+  const { state: Users, loading: userLoading } = users;
+  const { state: Employees, loading: empLoading } = employees;
   const Messages = new Message(
     messages.state,
     letters.state,
@@ -29,11 +28,10 @@ const Contacts = () => {
     Employees,
     department.state
   );
-
   const emp = Messages.UnFilter(Messages.getEmp_id());
   useEffect(() => {
     setState((s) => ({ employees: emp }));
-  }, [userLoading, empLoading]);
+  }, [userLoading, empLoading, Users]);
   /**search name elements with search index provide */
   const handleSearch = (index) =>
     setState((s) => ({

@@ -15,7 +15,10 @@ export class Message extends LettersClass {
   /** return an object of active or inactive users 
      @param {*} emp_id => emp_id of the users
     */
-  findConnected = (emp_id) => this.users.find((a) => a.emp_id === emp_id);
+  findConnected = (emp_id) => {
+    console.log(this.users, this.employees)
+    return (this.users.find((a) => a.emp_id === emp_id))
+  }
   /**returns an array of online users */
   onlineUsers = () => this.users.filter((a) => a.status === "connected");
   /** returns true if the user connected to the system  false if it is disconnected
@@ -43,8 +46,8 @@ export class Message extends LettersClass {
       m.sender !== this.getEmp_id()
         ? u.push(m.sender)
         : m.reciever !== this.getEmp_id()
-        ? u.push(m.reciever)
-        : Donothing();
+          ? u.push(m.reciever)
+          : Donothing();
     });
     let contact = new Set(u);
     return [...contact];
@@ -93,7 +96,6 @@ export class Message extends LettersClass {
     let inbox = this.message.filter(
       (m) => m.reciever === this.getEmp_id() && m.letter_id !== ""
     );
-    console.log(inbox);
     return inbox.map((m) => this.find_letter(m.letter_id));
   };
   /**return's array of objects that included on the index search string
@@ -117,15 +119,15 @@ export class Message extends LettersClass {
         this.manager_info(m ? m._id : "")
           ? !this.manager_info(m._id).seen
           : false || this.particpant_info(m ? m._id : "")
-          ? !this.particpant_info(m._id).seen
-          : false
+            ? !this.particpant_info(m._id).seen
+            : false
       ),
       seenLetters: letters.filter((m) =>
         this.manager_info(m ? m._id : "")
           ? this.manager_info(m._id).seen
           : false || this.particpant_info(m ? m._id : "")
-          ? this.particpant_info(m._id).seen
-          : false
+            ? this.particpant_info(m._id).seen
+            : false
       ),
     };
   };
@@ -134,16 +136,16 @@ export class Message extends LettersClass {
       this.manager_info(m ? m._id : "")
         ? !this.manager_info(m ? m._id : "").seen
         : false || this.particpant_info(m ? m._id : "")
-        ? !this.particpant_info(m ? m._id : "").seen
-        : false
+          ? !this.particpant_info(m ? m._id : "").seen
+          : false
     );
   seenInboxLetters = () =>
     this.InboxLetters().filter((m) =>
       this.manager_info(m ? m._id : "")
         ? this.manager_info(m ? m._id : "").seen
         : false || this.particpant_info(m ? m._id : "")
-        ? this.particpant_info(m ? m._id : "").seen
-        : false
+          ? this.particpant_info(m ? m._id : "").seen
+          : false
     );
   /**return's allowance letter of the user*/
   allowanceLetter = () =>
